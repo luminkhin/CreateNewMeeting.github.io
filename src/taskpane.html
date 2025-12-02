@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Meeting Template Pane</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script defer src="./taskpane.js"></script>
+  <style>
+    body { font-family: Segoe UI, system-ui, sans-serif; margin: 16px; }
+    label { display: block; margin-top: 8px; font-weight: 600; }
+    input, textarea { width: 100%; margin-top: 4px; padding: 8px; }
+    button { margin-top: 12px; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <h3>Insert meeting template</h3>
+  <label>Subject</label>
+  <input id="subject" value="Project Update Meeting" />
+
+  <label>Location</label>
+  <input id="location" value="Microsoft Teams" />
+
+  <label>Body (HTML)</label>
+  <textarea id="body" rows="8"><p>Dear Team,</p>
+<p>This is a scheduled meeting regarding project updates.</p>
+<p><strong>Agenda:</strong></p>
+<ol>
+  <li>Progress review</li>
+  <li>Issues and blockers</li>
+  <li>Next steps</li>
+</ol>
+<p>Best regards,<br/>Minkhin</p></textarea>
+
+  <button id="apply">Apply template</button>
+</body>
+</html>
