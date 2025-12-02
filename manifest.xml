@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+           xsi:type="Mail">
+
+  <Id>7b8a3b6a-6f40-4b25-9c12-9f2d3b2f1e11</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Minkhin</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+
+  <DisplayName DefaultValue="Meeting Template Add-in"/>
+  <Description DefaultValue="Insert a meeting template (subject, location, body) in appointment compose."/>
+  <Permissions>ReadWriteItem</Permissions>
+
+  <IconUrl DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/assets/icon-80.png"/>
+  <SupportUrl DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/help.html"/>
+
+  <AppDomains>
+    <AppDomain>https://luminkhin.github.io/CreateNewMeeting.github.io</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.8">
+      <Set Name="Mailbox" MinVersion="1.8"/>
+    </Sets>
+  </Requirements>
+
+  <!-- Appointment compose -->
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Read"/>
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit"/>
+  </Rule>
+
+  <mailappor:VersionOverrides Version="1.1">
+    <mailappor:Requirements>
+      <mailappor:Sets DefaultMinVersion="1.8">
+        <mailappor:Set Name="Mailbox" MinVersion="1.8"/>
+      </mailappor:Sets>
+    </mailappor:Requirements>
+
+    <mailappor:Hosts>
+      <mailappor:Host Name="Mailbox"/>
+    </mailappor:Hosts>
+
+    <mailappor:Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Js" DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/src/commands.js"/>
+        <bt:Url id="Taskpane.Html" DefaultValue="https://luminkhin.github.io/CreateNewMeeting.github.io/src/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GroupLabel" DefaultValue="Meeting Tools"/>
+        <bt:String id="Insert.Label" DefaultValue="Insert Template"/>
+        <bt:String id="Pane.Label" DefaultValue="Open Template Pane"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Insert.Tooltip" DefaultValue="Insert subject, location, and HTML body into the meeting."/>
+        <bt:String id="Pane.Tooltip" DefaultValue="Open the template task pane."/>
+      </bt:LongStrings>
+    </mailappor:Resources>
+
+    <mailappor:ExtensionPoints>
+      <mailappor:FunctionFile resid="Commands.Js"/>
+      <mailappor:AppointmentComposeCommandSurface>
+        <mailappor:OfficeTab id="TabDefault">
+          <mailappor:Group id="composeGroup" label="GroupLabel">
+            <mailappor:Control xsi:type="Button" id="insertTemplateButton" label="Insert.Label">
+              <mailappor:Supertip>
+                <mailappor:Title resid="Insert.Label"/>
+                <mailappor:Description resid="Insert.Tooltip"/>
+              </mailappor:Supertip>
+              <mailappor:Icon>
+                <mailappor:Image size="16" resid="Icon.16"/>
+                <mailappor:Image size="32" resid="Icon.32"/>
+                <mailappor:Image size="80" resid="Icon.80"/>
+              </mailappor:Icon>
+              <mailappor:Action xsi:type="ExecuteFunction">
+                <mailappor:FunctionName>setAppointmentTemplate</mailappor:FunctionName>
+              </mailappor:Action>
+            </mailappor:Control>
+
+            <mailappor:Control xsi:type="Button" id="openPaneButton" label="Pane.Label">
+              <mailappor:Supertip>
+                <mailappor:Title resid="Pane.Label"/>
+                <mailappor:Description resid="Pane.Tooltip"/>
+              </mailappor:Supertip>
+              <mailappor:Icon>
+                <mailappor:Image size="16" resid="Icon.16"/>
+                <mailappor:Image size="32" resid="Icon.32"/>
+                <mailappor:Image size="80" resid="Icon.80"/>
+              </mailappor:Icon>
+              <mailappor:Action xsi:type="ShowTaskpane">
+                <mailappor:SourceLocation resid="Taskpane.Html"/>
+              </mailappor:Action>
+            </mailappor:Control>
+          </mailappor:Group>
+        </mailappor:OfficeTab>
+      </mailappor:AppointmentComposeCommandSurface>
+    </mailappor:ExtensionPoints>
+  </mailappor:VersionOverrides>
+</OfficeApp>
